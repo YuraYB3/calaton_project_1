@@ -1,1 +1,2 @@
-const String routeAuth = 'routeAuth';
+const String routeLogin = 'routeLogin';
+const String routeHome = 'routeHome';

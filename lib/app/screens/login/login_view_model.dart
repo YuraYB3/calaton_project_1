@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:project_1/app/routing/routes.dart';
+import 'package:provider/provider.dart';
 
 import '../../common/widgets/notifications_helper.dart';
-import '../../routing/navigation_service.dart';
+import '../../routing/inavigation_util.dart';
 import '../../services/local_storage/local_storage.dart';
 import '../../services/input_validator.dart';
 
 class LoginViewModel extends ChangeNotifier {
   final LocalStorage _localStorage = LocalStorage();
   final InputValidator _inputValidator = InputValidator();
-  final NavigationService _navigationService = NavigationService();
 
   String _email = '';
   String _password = '';
@@ -40,9 +41,11 @@ class LoginViewModel extends ChangeNotifier {
         _inputValidator.isPasswordValid(password)) {
       try {
         await _localStorage.saveUserData(email, password);
-        _navigationService.navigateToHomePage(context);
+        final INavigationUtil _navigationUtil =
+            Provider.of<INavigationUtil>(context, listen: false);
+        _navigationUtil.navigateTo(routeHome, allowBackNavigation: false);
       } catch (e) {
-        showNotification(context, 'Couldnt save your data');
+        showNotification(context, e.toString());
       }
     } else {
       showNotification(

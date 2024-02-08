@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:project_1/data/news_model.dart';
-import 'package:project_1/domain/news/inews.dart';
-import 'package:project_1/domain/news/inews_repository.dart';
+
+import '../domain/news/inews.dart';
+import '../domain/news/inews_repository.dart';
+import 'news_model.dart';
 
 class NewsRepository extends ChangeNotifier implements INewsRepository {
   @override

@@ -9,7 +9,8 @@ import 'widgets/password_fiel.dart';
 
 class LoginView extends StatelessWidget {
   final ColorsPalete colorsPalete = ColorsPalete();
-  LoginView({super.key});
+
+  LoginView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

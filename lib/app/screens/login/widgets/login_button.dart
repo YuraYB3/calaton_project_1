@@ -13,10 +13,7 @@ SizedBox loginButton(
       ),
       onPressed: () async {
         await viewModel.validateAndNavigate(
-          context,
-          viewModel.email,
-          viewModel.password,
-        );
+            context, viewModel.email, viewModel.password);
       },
       child: Text(
         'LOGIN',
