@@ -3,17 +3,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../domain/local_storage/ilocal_storage.dart';
 
 class LocalStorage implements ILocalStorage {
-  late SharedPreferences _prefs;
-
-  Future<void> initPrefs() async {
-    _prefs = await SharedPreferences.getInstance();
+  @override
+  Future<void> delete(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(key);
   }
 
-  Future<void> saveUserData(String email, String password) async {
-    await _prefs.setString('email', email);
-    await _prefs.setString('password', password);
+  @override
+  Future<void> deleteAll() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
   }
 
-  String get savedEmail => _prefs.getString('email') ?? '';
-  String get savedPassword => _prefs.getString('password') ?? '';
+  @override
+  Future<String> read(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String data = prefs.getString(key) ?? '';
+    return data;
+  }
+
+  @override
+  Future<void> save(String key, data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(key, data);
+  }
 }

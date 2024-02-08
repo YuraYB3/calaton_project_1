@@ -5,7 +5,7 @@ import '../../theme/color_palete.dart';
 import 'login_view_model.dart';
 import 'widgets/email_field.dart';
 import 'widgets/login_button.dart';
-import 'widgets/password_fiel.dart';
+import 'widgets/password_field.dart';
 
 class LoginView extends StatelessWidget {
   final ColorsPalete colorsPalete = ColorsPalete();

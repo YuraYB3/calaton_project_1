@@ -1,29 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:project_1/app/routing/routes.dart';
-import 'package:provider/provider.dart';
 
+import '../../../domain/local_storage/ilocal_storage.dart';
 import '../../common/widgets/notifications_helper.dart';
 import '../../routing/inavigation_util.dart';
 import '../../services/local_storage/local_storage.dart';
 import '../../services/input_validator.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  final LocalStorage _localStorage = LocalStorage();
+  final ILocalStorage _localStorage = LocalStorage();
   final InputValidator _inputValidator = InputValidator();
-
+  final INavigationUtil navigationUtil;
   String _email = '';
   String _password = '';
 
   String get email => _email;
   String get password => _password;
 
-  LoginViewModel() {
-    _init();
-  }
-
-  Future<void> _init() async {
-    await _localStorage.initPrefs();
-  }
+  LoginViewModel({required this.navigationUtil});
 
   void updateEmail(String value) {
     _email = value;
@@ -40,10 +34,8 @@ class LoginViewModel extends ChangeNotifier {
     if (_inputValidator.isEmailValid(email) &&
         _inputValidator.isPasswordValid(password)) {
       try {
-        await _localStorage.saveUserData(email, password);
-        final INavigationUtil _navigationUtil =
-            Provider.of<INavigationUtil>(context, listen: false);
-        _navigationUtil.navigateTo(routeHome, allowBackNavigation: false);
+        await _localStorage.save(email, password);
+        navigationUtil.navigateTo(routeHome, allowBackNavigation: false);
       } catch (e) {
         showNotification(context, e.toString());
       }
