@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:project_1/app/screens/home/home_view.dart';
-import 'package:project_1/app/screens/login/login_view.dart';
 
+import '../screens/home/home_factory.dart';
+import '../screens/login/login_factory.dart';
 import 'routes.dart';
 
 class AppRouter {
   Route? onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case routeLogin:
-        return MaterialPageRoute(builder: (_) => LoginView());
+        return MaterialPageRoute(
+            builder: (_) => _buildLoginSettings(routeSettings));
 
       case routeHome:
-        return MaterialPageRoute(builder: (_) => const HomeView());
+        return MaterialPageRoute(
+            builder: (_) => _buildHomeSettings(routeSettings));
       default:
     }
+    return null;
   }
 
-  /* Widget _buildLoginSettings(RouteSettings settings) {
-    // return LoginFactory.build();
-    return Container();
+  Widget _buildLoginSettings(RouteSettings settings) {
+    return LoginFactory.build();
   }
 
   Widget _buildHomeSettings(RouteSettings settings) {
-    //  return HomeFactory.build();
-    return Container();
-  }*/
+    return HomeFactory.build();
+  }
 }

@@ -1,15 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 import '../domain/news/inews.dart';
 import '../domain/news/inews_repository.dart';
 import 'news_model.dart';
 
-class NewsRepository extends ChangeNotifier implements INewsRepository {
+class NewsRepository implements INewsRepository {
   @override
   Future<List<INews>> fetchData() async {
-    late Dio dio;
-    dio = Dio();
+    final Dio dio = Dio();
     var apiUrl =
         'https://newsapi.org/v2/everything?q=ukraine&apiKey=ba51d9335fd54282a85357a5de6d151a';
     List<NewsModel> newsList = [];

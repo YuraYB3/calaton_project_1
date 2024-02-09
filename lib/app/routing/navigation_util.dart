@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'inavigation_util.dart';
 
 class NavigationUtil implements INavigationUtil {
-  final GlobalKey<NavigatorState> _navigatorKey;
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
-  NavigationUtil(this._navigatorKey);
+  NavigationUtil();
 
   @override
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;

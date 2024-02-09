@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project_1/app/screens/home/home_view_model.dart';
-import 'package:provider/provider.dart';
 
 import '../../../domain/news/inews.dart';
 import '../../common/widgets/loading.dart';
@@ -15,8 +14,7 @@ class HomeView extends StatefulWidget {
 }
 
 class HomeViewState extends State<HomeView> {
-  late final HomeViewModel _newsService =
-      Provider.of<HomeViewModel>(context, listen: false);
+  HomeViewModel home = HomeViewModel();
   List<INews> dataList = [];
   final ColorsPalete _colorsPalete = ColorsPalete();
 
@@ -27,7 +25,7 @@ class HomeViewState extends State<HomeView> {
   }
 
   Future<List<INews>> fetchData() async {
-    List<INews> newData = await _newsService.fetchData();
+    List<INews> newData = await home.fetchData();
     setState(() {
       dataList = newData;
     });

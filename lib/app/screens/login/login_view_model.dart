@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_1/app/routing/routes.dart';
+import 'package:provider/provider.dart';
 
 import '../../../domain/local_storage/ilocal_storage.dart';
 import '../../common/widgets/notifications_helper.dart';
@@ -10,14 +11,14 @@ import '../../services/input_validator.dart';
 class LoginViewModel extends ChangeNotifier {
   final ILocalStorage _localStorage = LocalStorage();
   final InputValidator _inputValidator = InputValidator();
-  final INavigationUtil navigationUtil;
+
   String _email = '';
   String _password = '';
 
   String get email => _email;
   String get password => _password;
 
-  LoginViewModel({required this.navigationUtil});
+  LoginViewModel();
 
   void updateEmail(String value) {
     _email = value;
@@ -31,6 +32,8 @@ class LoginViewModel extends ChangeNotifier {
 
   Future<void> validateAndNavigate(
       BuildContext context, String email, String password) async {
+    final INavigationUtil navigationUtil =
+        Provider.of<INavigationUtil>(context, listen: false);
     if (_inputValidator.isEmailValid(email) &&
         _inputValidator.isPasswordValid(password)) {
       try {
