@@ -5,8 +5,13 @@ import '../../../domain/news/inews.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final NewsRepository _newsRepository = NewsRepository();
-  Future<List<INews>> fetchData() async {
-    List<INews> newData = await _newsRepository.fetchData();
-    return newData;
+  List<INews> _newsData = [];
+
+  List<INews> get newsData => _newsData;
+
+  Future<void> fetchData() async {
+    List<INews> data = await _newsRepository.fetchData();
+    _newsData = data;
+    notifyListeners();
   }
 }

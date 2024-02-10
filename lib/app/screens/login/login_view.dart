@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../theme/color_palete.dart';
 import 'login_view_model.dart';
@@ -9,14 +8,12 @@ import 'widgets/password_field.dart';
 
 class LoginView extends StatelessWidget {
   final ColorsPalete colorsPalete = ColorsPalete();
+  final LoginViewModel viewModel;
 
-  LoginView({Key? key}) : super(key: key);
+  LoginView({required this.viewModel, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final LoginViewModel viewModel =
-        Provider.of<LoginViewModel>(context, listen: true);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: colorsPalete.backgroundColor,

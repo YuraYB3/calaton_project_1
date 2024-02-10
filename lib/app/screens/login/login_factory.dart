@@ -9,7 +9,7 @@ class LoginFactory {
     return ChangeNotifierProvider(
         create: (context) => LoginViewModel(),
         child: Consumer<LoginViewModel>(
-          builder: (context, model, child) => LoginView(),
+          builder: (context, model, child) => LoginView(viewModel: model),
         ));
   }
 }

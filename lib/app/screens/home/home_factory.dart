@@ -8,7 +8,7 @@ class HomeFactory {
     return ChangeNotifierProvider(
         create: (context) => HomeViewModel(),
         child: Consumer<HomeViewModel>(
-          builder: (context, model, child) => const HomeView(),
+          builder: (context, model, child) => HomeView(viewModel: model),
         ));
   }
 }

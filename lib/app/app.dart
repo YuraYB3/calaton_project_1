@@ -24,6 +24,7 @@ class _AppState extends State<App> {
     final INavigationUtil navigationUtil =
         Provider.of<INavigationUtil>(context, listen: false);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: router.onGenerateRoute,
       navigatorKey: navigationUtil.navigatorKey,
       initialRoute: initialRoute,
