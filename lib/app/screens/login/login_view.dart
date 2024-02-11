@@ -8,9 +8,9 @@ import 'widgets/password_field.dart';
 
 class LoginView extends StatelessWidget {
   final ColorsPalete colorsPalete = ColorsPalete();
-  final LoginViewModel viewModel;
+  final LoginViewModel model;
 
-  LoginView({required this.viewModel, Key? key}) : super(key: key);
+  LoginView({required this.model, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,9 @@ class LoginView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    emailField(viewModel),
-                    passwordField(viewModel),
-                    loginButton(viewModel, context, colorsPalete),
+                    EmailField(viewModel: model),
+                    PasswordField(viewModel: model),
+                    LoginButton(viewModel: model),
                   ],
                 ),
               ),

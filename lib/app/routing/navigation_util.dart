@@ -11,6 +11,9 @@ class NavigationUtil implements INavigationUtil {
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
   @override
+  bool get canPop => navigatorKey.currentState!.canPop();
+
+  @override
   Future<dynamic> navigateTo<T extends Object?>(
     String routeName, {
     bool allowBackNavigation = true,
@@ -60,9 +63,6 @@ class NavigationUtil implements INavigationUtil {
   void navigateBackUntilNamed(String named) {
     navigatorKey.currentState!.popUntil(ModalRoute.withName(named));
   }
-
-  @override
-  bool get canPop => navigatorKey.currentState!.canPop();
 
   @override
   void navigateBackToStart() {

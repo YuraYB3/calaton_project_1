@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/user/user_model.dart';
 import '../../../domain/local_storage/ilocal_storage.dart';
+import '../../../domain/user/iuser.dart';
 import '../../common/login_variables.dart';
 import '../../common/widgets/notifications_helper.dart';
 import '../../routing/inavigation_util.dart';
@@ -11,12 +13,10 @@ import '../../services/input_validator.dart';
 class LoginViewModel extends ChangeNotifier {
   final ILocalStorage _localStorage;
   final InputValidator _inputValidator = InputValidator();
+  final IUser _userModel = UserModel(email: '', password: '');
 
-  String _email = '';
-  String _password = '';
-
-  String get email => _email;
-  String get password => _password;
+  String get email => _userModel.email;
+  String get password => _userModel.password;
 
   LoginViewModel({required ILocalStorage localStorage})
       : _localStorage = localStorage;
@@ -31,12 +31,12 @@ class LoginViewModel extends ChangeNotifier {
       _inputValidator.isPasswordValid(password);
 
   void updateEmail(String value) {
-    _email = value;
+    _userModel.email = value;
     notifyListeners();
   }
 
   void updatePassword(String value) {
-    _password = value;
+    _userModel.password = value;
     notifyListeners();
   }
 

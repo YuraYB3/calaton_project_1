@@ -11,7 +11,7 @@ class LoginFactory {
         create: (context) => LoginViewModel(
             localStorage: Provider.of<ILocalStorage>(context, listen: false)),
         child: Consumer<LoginViewModel>(
-          builder: (context, model, child) => LoginView(viewModel: model),
+          builder: (context, model, child) => LoginView(model: model),
         ));
   }
 }

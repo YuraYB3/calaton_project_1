@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       future: Provider.of<IAuthService>(context, listen: false).initialize(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return showLoading();
+          return const Loading();
         } else {
           return const _AppContent();
         }

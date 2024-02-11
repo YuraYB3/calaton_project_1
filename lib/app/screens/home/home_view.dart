@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project_1/app/screens/home/widgets/list_of_news.dart';
 
 import '../../common/widgets/loading.dart';
 import '../../theme/color_palete.dart';
 import 'home_view_model.dart';
-import 'widgets/list_of_news.dart';
 
 class HomeView extends StatefulWidget {
   final HomeViewModel viewModel;
@@ -38,8 +38,8 @@ class HomeViewState extends State<HomeView> {
       ),
       body: Center(
         child: widget.viewModel.newsData.isEmpty
-            ? showLoading()
-            : listOfNewsWidget(widget.viewModel.newsData),
+            ? const Loading()
+            : ListOfNews(dataList: widget.viewModel.newsData),
       ),
     );
   }
