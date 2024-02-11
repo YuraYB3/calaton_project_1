@@ -1,4 +1,4 @@
-import 'package:project_1/domain/news/inews.dart';
+import '../../domain/news/inews.dart';
 
 class NewsModel implements INews {
   @override

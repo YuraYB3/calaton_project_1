@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_1/app/screens/home/home_view_model.dart';
 
 import '../../common/widgets/loading.dart';
 import '../../theme/color_palete.dart';
+import 'home_view_model.dart';
 import 'widgets/list_of_news.dart';
 
 class HomeView extends StatefulWidget {
@@ -29,8 +29,10 @@ class HomeViewState extends State<HomeView> {
         backgroundColor: _colorsPalete.backgroundColor,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.logout_rounded),
-            onPressed: () {},
+            icon: const Icon(Icons.logout_rounded),
+            onPressed: () {
+              widget.viewModel.onLogOutButtonPressed(context);
+            },
           ),
         ],
       ),

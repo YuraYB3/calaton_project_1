@@ -1,33 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:project_1/app/routing/app_router.dart';
-import 'package:project_1/app/routing/routes.dart';
 import 'package:provider/provider.dart';
 
+import '../domain/auth/iauth_service.dart';
+import 'common/widgets/loading.dart';
+import 'routing/app_router.dart';
 import 'routing/inavigation_util.dart';
 
-class App extends StatefulWidget {
-  const App({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  AppRouter router = AppRouter();
-
-  String initialRoute = routeLogin;
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final INavigationUtil navigationUtil =
-        Provider.of<INavigationUtil>(context, listen: false);
+    return FutureBuilder(
+      future: Provider.of<IAuthService>(context, listen: false).initialize(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return showLoading();
+        } else {
+          return const _AppContent();
+        }
+      },
+    );
+  }
+}
+
+class _AppContent extends StatelessWidget {
+  const _AppContent({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final router = AppRouter();
+    final authService = Provider.of<IAuthService>(context, listen: false);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: router.onGenerateRoute,
-      navigatorKey: navigationUtil.navigatorKey,
-      initialRoute: initialRoute,
+      navigatorKey:
+          Provider.of<INavigationUtil>(context, listen: false).navigatorKey,
+      initialRoute: authService.initialRoute,
     );
   }
 }

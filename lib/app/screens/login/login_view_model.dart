@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:project_1/app/routing/routes.dart';
 import 'package:provider/provider.dart';
 
 import '../../../domain/local_storage/ilocal_storage.dart';
+import '../../common/login_variables.dart';
 import '../../common/widgets/notifications_helper.dart';
 import '../../routing/inavigation_util.dart';
-import '../../services/local_storage/local_storage.dart';
+import '../../routing/routes.dart';
 import '../../services/input_validator.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  final ILocalStorage _localStorage = LocalStorage();
+  final ILocalStorage _localStorage;
   final InputValidator _inputValidator = InputValidator();
 
   String _email = '';
@@ -18,7 +18,17 @@ class LoginViewModel extends ChangeNotifier {
   String get email => _email;
   String get password => _password;
 
-  LoginViewModel();
+  LoginViewModel({required ILocalStorage localStorage})
+      : _localStorage = localStorage;
+
+  void _saveEmailAndPassword() {
+    _localStorage.save(loginEmail, email);
+    _localStorage.save(loginPassword, password);
+  }
+
+  bool _isValidate() =>
+      _inputValidator.isEmailValid(email) &&
+      _inputValidator.isPasswordValid(password);
 
   void updateEmail(String value) {
     _email = value;
@@ -30,14 +40,13 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> validateAndNavigate(
-      BuildContext context, String email, String password) async {
+  void onLoginButtonPressed(BuildContext context) {
+    bool isValid = _isValidate();
     final INavigationUtil navigationUtil =
         Provider.of<INavigationUtil>(context, listen: false);
-    if (_inputValidator.isEmailValid(email) &&
-        _inputValidator.isPasswordValid(password)) {
+    if (isValid) {
       try {
-        await _localStorage.save(email, password);
+        _saveEmailAndPassword();
         navigationUtil.navigateTo(routeHome, allowBackNavigation: false);
       } catch (e) {
         showNotification(context, e.toString());

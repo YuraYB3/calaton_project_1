@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../domain/news/inews.dart';
 
-ListView listOfNewsWidget(List<INews> dataList) {
+Widget listOfNewsWidget(List<INews> dataList) {
   return ListView.builder(
     itemCount: 10,
     itemBuilder: (context, index) {

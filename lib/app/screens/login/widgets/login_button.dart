@@ -11,9 +11,10 @@ SizedBox loginButton(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
       ),
-      onPressed: () async {
-        await viewModel.validateAndNavigate(
-            context, viewModel.email, viewModel.password);
+      onPressed: () {
+        viewModel.onLoginButtonPressed(
+          context,
+        );
       },
       child: Text(
         'LOGIN',

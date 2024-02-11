@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../domain/local_storage/ilocal_storage.dart';
 
 class LocalStorage implements ILocalStorage {
+  LocalStorage();
   @override
   Future<void> delete(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
