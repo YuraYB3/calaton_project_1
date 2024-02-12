@@ -17,23 +17,8 @@ class NetworkService implements INetworkService {
   }
 
   @override
-  Future delete() async {
-    throw UnimplementedError();
-  }
-
-  @override
   Future get(String endpoint, String query) async {
     var response = await dio.get('$endpoint$query&apiKey=$apiKey');
     return response;
-  }
-
-  @override
-  Future post(String endpoint) async {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future put() {
-    throw UnimplementedError();
   }
 }
