@@ -4,22 +4,30 @@ import 'package:provider/provider.dart';
 import '../../../data/news/news_repository.dart';
 import '../../../domain/local_storage/ilocal_storage.dart';
 import '../../../domain/news/inews.dart';
-import '../../common/login_variables.dart';
+import '../../../domain/news/inews_repository.dart';
 import '../../routing/inavigation_util.dart';
 import '../../routing/routes.dart';
+import '../../services/local_storage/keys/keys.dart';
+import '../../services/networking/inetwork_service.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final ILocalStorage _localStorage;
-  final NewsRepository _newsRepository = NewsRepository();
+  // ignore: unused_field
+  final INetworkService _networkService;
+  final INewsRepository _newsRepository;
 
-  HomeViewModel({required ILocalStorage localStorage})
-      : _localStorage = localStorage;
+  HomeViewModel(
+      {required ILocalStorage localStorage,
+      required INetworkService networkService})
+      : _localStorage = localStorage,
+        _networkService = networkService,
+        _newsRepository = NewsRepository(networkService: networkService);
   List<INews> _newsData = [];
 
   List<INews> get newsData => _newsData;
   void _deleteEmailAndPassword() {
-    _localStorage.delete(loginEmail);
-    _localStorage.delete(loginPassword);
+    _localStorage.delete(keyEmail);
+    _localStorage.delete(keyPassword);
   }
 
   Future<void> fetchData() async {

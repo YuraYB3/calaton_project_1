@@ -1,6 +1,6 @@
 import '../../domain/news/inews.dart';
 
-class NewsModel implements INews {
+class News implements INews {
   @override
   String author;
 
@@ -13,15 +13,15 @@ class NewsModel implements INews {
   @override
   String imageUrl;
 
-  NewsModel({
+  News({
     required this.author,
     required this.title,
     required this.description,
     required this.imageUrl,
   });
 
-  factory NewsModel.fromJson(Map<String, dynamic> json) {
-    return NewsModel(
+  factory News.fromJson(Map<String, dynamic> json) {
+    return News(
       author: json['author'] ?? '',
       description: json['description'] ?? '',
       imageUrl: json['urlToImage'] ?? '',

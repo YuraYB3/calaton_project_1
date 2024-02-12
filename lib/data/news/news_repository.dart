@@ -1,22 +1,21 @@
-import 'package:dio/dio.dart';
-
-import '../../domain/news/inews.dart';
+import '../../app/services/networking/endpoints.dart';
+import '../../app/services/networking/inetwork_service.dart';
 import '../../domain/news/inews_repository.dart';
-import 'news_model.dart';
+import 'news.dart';
 
 class NewsRepository implements INewsRepository {
+  final INetworkService _networkService;
+  NewsRepository({required INetworkService networkService})
+      : _networkService = networkService;
   @override
-  Future<List<INews>> fetchData() async {
-    final Dio dio = Dio();
-    String apiUrl =
-        'https://newsapi.org/v2/everything?q=ukraine&apiKey=ba51d9335fd54282a85357a5de6d151a';
-    List<NewsModel> newsList = [];
+  Future<dynamic> fetchData() async {
+    List<News> newsList = [];
     try {
-      var response = await dio.get(apiUrl);
+      var response = await _networkService.get(fetchNewsEndpoint, 'ukraine');
 
       newsList = (response.data['articles'] as List)
-          .map((json) => NewsModel.fromJson(json))
-          .map((news) => NewsModel(
+          .map((json) => News.fromJson(json))
+          .map((news) => News(
               author: news.author,
               title: news.title,
               description: news.description,

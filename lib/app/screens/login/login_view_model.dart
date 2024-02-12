@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/user/user_model.dart';
+import '../../../data/user/user.dart';
 import '../../../domain/local_storage/ilocal_storage.dart';
 import '../../../domain/user/iuser.dart';
-import '../../common/login_variables.dart';
 import '../../common/widgets/notifications_helper.dart';
 import '../../routing/inavigation_util.dart';
 import '../../routing/routes.dart';
 import '../../services/input_validator.dart';
+import '../../services/local_storage/keys/keys.dart';
 
 class LoginViewModel extends ChangeNotifier {
   final ILocalStorage _localStorage;
   final InputValidator _inputValidator = InputValidator();
-  final IUser _userModel = UserModel(email: '', password: '');
+  final IUser _userModel = User(email: '', password: '');
 
   String get email => _userModel.email;
   String get password => _userModel.password;
@@ -22,8 +22,8 @@ class LoginViewModel extends ChangeNotifier {
       : _localStorage = localStorage;
 
   void _saveEmailAndPassword() {
-    _localStorage.save(loginEmail, email);
-    _localStorage.save(loginPassword, password);
+    _localStorage.save(keyEmail, email);
+    _localStorage.save(keyPassword, password);
   }
 
   bool _isValidate() =>

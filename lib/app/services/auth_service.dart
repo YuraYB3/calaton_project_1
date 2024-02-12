@@ -1,7 +1,7 @@
 import '../../domain/auth/iauth_service.dart';
 import '../../domain/local_storage/ilocal_storage.dart';
-import '../common/login_variables.dart';
 import '../routing/routes.dart';
+import 'local_storage/keys/keys.dart';
 
 class AuthService implements IAuthService {
   String _initialRoute = routeLogin;
@@ -12,13 +12,13 @@ class AuthService implements IAuthService {
 
   @override
   Future<void> initialize() async {
-    await checkUserExist();
+    await _checkUserExist();
   }
 
-  Future<void> checkUserExist() async {
+  Future<void> _checkUserExist() async {
     try {
-      String email = await localStorage.read(loginEmail);
-      String password = await localStorage.read(loginPassword);
+      String email = await localStorage.read(keyEmail);
+      String password = await localStorage.read(keyPassword);
       if (email.isNotEmpty && password.isNotEmpty) {
         _initialRoute = routeHome;
       } else {
