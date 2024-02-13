@@ -10,8 +10,9 @@ class NewsRepository implements INewsRepository {
   @override
   Future<dynamic> fetchData() async {
     List<News> newsList = [];
+    String query = 'ukraine';
     try {
-      var response = await _networkService.get(fetchNewsEndpoint, 'ukraine');
+      var response = await _networkService.get(fetchNewsEndpoint, query);
 
       newsList = (response['articles'] as List)
           .map((json) => News.fromJson(json))

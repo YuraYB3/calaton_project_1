@@ -27,8 +27,6 @@ void main() {
         Provider.value(
           value: authService,
         ),
-        //  ChangeNotifierProvider(
-        //      create: (context) => LoginViewModel(localStorage: localStorage)),
       ],
       child: const App(),
     ),

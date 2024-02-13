@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../domain/auth/iauth_service.dart';
-import 'common/widgets/loading.dart';
 import 'routing/app_router.dart';
 import 'routing/inavigation_util.dart';
+import 'screens/loading/loading_view.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       future: Provider.of<IAuthService>(context, listen: false).initialize(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Loading();
+          return const LoadingView();
         } else {
           return const _AppContent();
         }
