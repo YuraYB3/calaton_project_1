@@ -13,7 +13,7 @@ class NewsRepository implements INewsRepository {
     try {
       var response = await _networkService.get(fetchNewsEndpoint, 'ukraine');
 
-      newsList = (response.data['articles'] as List)
+      newsList = (response['articles'] as List)
           .map((json) => News.fromJson(json))
           .map((news) => News(
               author: news.author,

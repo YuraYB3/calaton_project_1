@@ -18,7 +18,62 @@ class NetworkService implements INetworkService {
 
   @override
   Future get(String endpoint, String query) async {
-    var response = await dio.get('$endpoint$query&apiKey=$apiKey');
-    return response;
+    try {
+      var response = await dio.get('$endpoint$query&apiKey=$apiKey');
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+      throw 'Something went wrong';
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future delete(String endpoint, dynamic data) async {
+    try {
+      final Response response = await dio.delete(
+        endpoint,
+        data: data,
+      );
+      if (response.statusCode == 204) {
+        return response.data;
+      }
+      throw "something went wrong";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future post(String endpoint, dynamic data) async {
+    try {
+      final Response response = await dio.post(
+        endpoint,
+        data: data,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.data;
+      }
+      throw "something went wrong";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future put(String endpoint, dynamic data) async {
+    try {
+      final Response response = await dio.put(
+        endpoint,
+        data: data,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.data;
+      }
+      throw "something went wrong";
+    } catch (e) {
+      rethrow;
+    }
   }
 }
